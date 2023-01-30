@@ -1,9 +1,10 @@
 import React,{ useState } from "react";
-import { Link } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 const AddContacts = () => {
 
+ let navigate = useNavigate();
   const url = "http://localhost:5000/contacts";
 
   const [formData, setFormData] = useState({});
@@ -14,9 +15,11 @@ e.preventDefault();
 axios.post(url,{
   name: formData.name,
   number: formData.number,
-  emails: formData.emails,
+  email: formData.email,
 }).then(response => {
     console.log(response.formData)
+    navigate("/")
+    window.location.reload();
 });
 }
 
@@ -29,40 +32,35 @@ axios.post(url,{
 
 
   return (
-    <div>
-      <h2>Add Contacts</h2>
-      <form action="/contacts" method="POST" onSubmit={(e) => handleSubmit(e)}>
-        <label for="name">contact_name:</label>
-        <input
-          type="text"
-          onChange={(e) => handleChange(e)}
-          id="name"
-          value={formData.name}
-          name="name"
-          required
-        />
-        <label for="number">contact_number</label>
-        <input
-          type="number"
-          onChange={(e) => handleChange(e)}
-          id="number"
-          value={formData.number}
-          name="number"
-          required
-        />
-        <label for="email">contact_email</label>
-        <input
-          type="text"
-          onChange={(e) => handleChange(e)}
-          id="email"
-          value={formData.email}
-          name="email"
-          required
-        />
-        <button>Submit</button>
-        <Link to={"/"}>Cancel</Link>
-      </form>
-    </div>
+
+<div className="container">
+    <form action="/contacts" method="POST" onSubmit={(e) => handleSubmit(e)}>
+        <ul>
+            <li>
+                <label for="name"><span>Firstname</span></label>
+                <input type="text" id="name" placeholder="Your name" onChange={(e) => handleChange(e)} name="user_name" />
+            </li>
+            <li>
+                <label for="email"><span>Email <span class="required-star">*</span></span></label>
+                <input type="email" id="email" placeholder="Your email" onChange={(e) => handleChange(e)} name="email" />
+            </li>
+            <li>
+             <label for="number"><span>Phone Number <span class="required-star">*</span></span></label>
+             <input type="number" id="number"  placeholder="+2784 788 2345" onChange={(e) => handleChange(e)} name="number" />
+            </li>
+            <li>
+              <button type="submit">Save Details</button>
+              <button className="cancel" onClick={navigate("/")
+              }>Cancel</button>
+            </li>
+        </ul>
+    </form>
+</div>
+
+
+
+
+
   );
 }
 

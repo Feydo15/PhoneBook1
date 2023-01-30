@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route, BrowserRouter} from "react-router-dom";
 import axios from "axios";
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import AddContacts from "./components/addContactsScreen"
 import Display from "./components/displayScreen"

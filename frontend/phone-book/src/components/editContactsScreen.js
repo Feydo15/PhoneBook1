@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from 'react-router-dom';
+import { useParams,  useNavigate } from 'react-router-dom';
 import axios from "axios";
 
 
@@ -13,7 +13,7 @@ const  EditContacts = (backendData) => {
 
   const {id}= useParams();
 
-
+  let navigate = useNavigate();
   const [editData, setEditData] = useState({
   });
 
@@ -25,6 +25,7 @@ number:editData.number,
 email:editData.email
 }).then(response => {
     console.log(response.editData)
+    navigate("/")
 });
 }
 
@@ -48,41 +49,30 @@ email:editData.email
 
 
   return (
-    <div>
-      <h2>Edit Contacts</h2>
-      <form action="/contacts" method="put" onSubmit={(e) => handleSubmit(e)}>
-        <label for="name"> contact_name</label>
-        <input
-          type="text"
-          onChange={(e) => handleChange(e)}
-          id="name"
-          value={editData.name}
-          name="name"
-          required
-        />
-        <label for="number">contact_number</label>
-        <input
-          type="number"
-          onChange={(e) => handleChange(e)}
-          id="number"
-          value={editData.number}
-          name="number"
-          required
-        />
-        <label for="email">contact_emails</label>
-        <input
-          type="text"
-          onChange={(e) => handleChange(e)}
-          id="email"
-          value={editData.email}
-          name="email"
-          required
-        />
-        <button>Submit</button>
-<Link to={"/"}>Cancel</Link>
-      </form>
-    </div>
-  );
+
+<div className="container">
+    <form action="/contacts" method="POST" onSubmit={(e) => handleSubmit(e)}>
+        <ul>
+            <li>
+                <label for="name"><span>Firstname</span></label>
+                <input type="text" id="name" placeholder="Your name"  value={editData.name} onChange={(e) => handleChange(e)} name="user_name" />
+            </li>
+            <li>
+                <label for="email"><span>Email <span class="required-star">*</span></span></label>
+                <input type="email" id="email" placeholder="Your email" value={editData.email} onChange={(e) => handleChange(e)} name="email" />
+            </li>
+            <li>
+             <label for="number"><span>Phone Number <span class="required-star">*</span></span></label>
+             <input type="number" id="number"  placeholder="+2784 788 2345"  value={editData.number} onChange={(e) => handleChange(e)} name="number" />
+            </li>
+            <li>
+              <button type="submit">Save Details</button>
+              <button className="cancel" onClick={navigate("/")}>Cancel</button>
+            </li>
+        </ul>
+    </form>
+</div>
+ );
 }
 
 export default EditContacts;

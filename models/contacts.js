@@ -7,20 +7,13 @@ const contactsSchema = new Schema({
         type: String,
         required: true
     },
-    number: {
+number: {
         type: Number,
         required: true
     },
     email:{
         type: String,
-        required: false,
-        trim:true,
-        unique:true,
-        validate(value){
-            if(!validator.isEmail(value)){
-                throw new Error ("Please enter correct email");
-            }
-        }
+        required: true
     }
     
 },{});
