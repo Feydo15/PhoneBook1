@@ -45,7 +45,7 @@ const Change = () => {
 		  '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3', 
 		  '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
 
-return colors[Math.floor(Math.random())]
+return colors[Math.floor(Math.random() * colors.length)]
 }
 
 
